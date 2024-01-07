@@ -1,3 +1,5 @@
+from statistics import mean
+
 spicy_foods = [
     {
         "name": "Green Curry",
@@ -28,14 +30,12 @@ def get_spiciest_foods(spicy_foods):
 def print_spicy_foods(spicy_foods):
     for food in spicy_foods:
         print(
-            f"""{food['name']} ({food['cuisine']}) | Heat Level: {'🌶'*food['heat_level']}"""
+            f"{food['name']} ({food['cuisine']}) | Heat Level: {'🌶'*food['heat_level']}"
         )
 
 
 def get_spicy_food_by_cuisine(spicy_foods, cuisine):
-    for food in spicy_foods:
-        if food["cuisine"] == cuisine:
-            return food
+    return [food for food in spicy_foods if food["cuisine"] == cuisine][0]
 
 
 def print_spiciest_foods(spicy_foods):
@@ -44,10 +44,8 @@ def print_spiciest_foods(spicy_foods):
 
 
 def get_average_heat_level(spicy_foods):
-    sum = 0
-    for food in spicy_foods:
-        sum += food["heat_level"]
-    return sum / len(spicy_foods)
+    levels = [food["heat_level"] for food in spicy_foods]
+    return mean(levels)
 
 
 def create_spicy_food(spicy_foods, spicy_food):
@@ -55,4 +53,9 @@ def create_spicy_food(spicy_foods, spicy_food):
     return spicy_foods
 
 
+def sort_by_heat(spicy_foods):
+    return sorted(spicy_foods, key=lambda food: food.get("heat_level"))
+
+
 print_spiciest_foods(spicy_foods)
+print(sort_by_heat(spicy_foods))
